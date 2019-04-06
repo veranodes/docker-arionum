@@ -49,7 +49,7 @@ services:
         #     - DB_USER=dev
         #     - DB_PASSWORD=dev123
         #     - DB_NAME=arionum
-            - MASTERNODE_PUBLIC_KEY_CONFIG=demo
+            - MASTERNODE_PUBLIC_KEY=demo
         # ports:
         #     - "9000:9000"
         volumes:
