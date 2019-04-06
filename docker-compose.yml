@@ -1,0 +1,78 @@
+#
+# Source code address
+# https://hub.docker.com/u/cuongtransc/
+#
+# Syntax: https://docs.docker.com/compose/compose-file/
+#
+
+version: "2.4"
+
+x-default: &default
+    networks:
+        - comp_default
+    cpu_shares: 512
+    mem_limit: 100M
+    # privileged: true
+    restart: always
+    # stdin_open: true
+    # tty: true
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "100M"
+            max-file: "3"
+
+services:
+    mariadb:
+        << : *default
+        image: mariadb:10.3
+        environment:
+            - MYSQL_ROOT_PASSWORD=devsecret
+            - MYSQL_USER=dev
+            - MYSQL_PASSWORD=dev123
+            - MYSQL_DATABASE=arionum
+        ports:
+            - "3306:3306"
+        volumes:
+            - mariadb-data/:/var/lib/mysql/
+        hostname: mariadb
+        mem_limit: 4G
+
+    php:
+        << : *default
+        image: veranodes/arionum:0.1
+        build: .
+        depends_on:
+            - mariadb
+        environment:
+        #     - DB_HOST=mariadb
+        #     - DB_USER=dev
+        #     - DB_PASSWORD=dev123
+        #     - DB_NAME=arionum
+            - MASTERNODE_PUBLIC_KEY_CONFIG=demo
+        # ports:
+        #     - "9000:9000"
+        volumes:
+          - ./:/app
+        hostname: arionum-node
+        mem_limit: 4G
+
+    nginx:
+        << : *default
+        image: nginx:1.13-alpine
+        depends_on:
+            - php
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/app
+            - ./nginx/site.conf:/etc/nginx/conf.d/default.conf
+        hostname: nginx
+
+networks:
+    comp_default:
+        external: true
+
+volumes:
+    mariadb-data:
+

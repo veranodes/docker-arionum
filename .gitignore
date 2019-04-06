@@ -1,1 +1,4 @@
 include/config.inc.php
+
+# Ignore docker compose data
+mariadb-data/

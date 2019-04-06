@@ -29,6 +29,19 @@ This app should only be run in the main directory of the domain/subdomain, ex: h
 
 The node should have a public IP and be accessible over internet.
 
+
+## Run Masternode with Docker
+
+Step 1: Start full node
+
+```bash
+docker network create comp_default
+docker-compose up -d
+```
+
+Step 2: Setup Masternode like this [tutorial](http://aro.wiki/how-to-setup-an-arionum-masternode/)
+
+
 ## Links
 
 - Official website: https://www.arionum.com
