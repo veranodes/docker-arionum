@@ -2,3 +2,7 @@ include/config.inc.php
 
 # Ignore docker compose data
 mariadb-data/
+
+# Ignore docker-compose.override.yml
+docker-compose.override.yml
+
