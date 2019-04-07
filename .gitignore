@@ -6,3 +6,5 @@ mariadb-data/
 # Ignore docker-compose.override.yml
 docker-compose.override.yml
 
+# Ignore tmp
+tmp/
