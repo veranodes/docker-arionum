@@ -1,4 +1,5 @@
-include/config.inc.php
+/include/config.inc.php
+/composer.lock
 
 # Ignore docker compose data
 mariadb-data/
